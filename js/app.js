@@ -3,9 +3,6 @@ function Image (iname,path) {
     this.path = path;
     this.nClicks = 0;
     this.nViews = 0;
-    this.displayTag = function () {
-        return '<img src="' + this.path + '" />';
-    };
 }
 
 function populateImages() {
@@ -26,17 +23,17 @@ var clickTrap = document.getElementById('clicktrap');
 clickTrap.addEventListener ("click", function (e) {
     switch (e.target.id) {
         case "imgLeft": {
-            images[imgLeft].nclicks++;
+            images[imgLeft].nClicks++;
             console.log('left');
             break;
         }
         case "imgCenter": {
-            images[imgCenter].nclicks++;
+            images[imgCenter].nClicks++;
             console.log('center');
             break;
         }
         case 'imgRight': {
-            images[imgRight].nclicks++;
+            images[imgRight].nClicks++;
             console.log('right');
             break;
         }
@@ -53,12 +50,12 @@ var centertImageEl = document.getElementById('imgCenter');
 var rightImageEl = document.getElementById('imgRight');
 // these three hold the current object being displayed in each div.
 var imgLeft, imgCenter, imgRight = 0;
-
-console.log(leftImageEl, centertImageEl, rightImageEl);
+var globalClickCounter = 0;
 
 // Creating and populating array of image objects
 images = [];
 for (var i=0; i<imageData.length;i++) {
     images[i] = new Image(imageData[i][0],imageData[i][1]);
 }
+// initially populating the images.
 populateImages();
