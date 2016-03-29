@@ -5,6 +5,7 @@ function randomRange(low,high) {
         return low;
     }
 }
+exports.randomRange = randomRange
 
 function singleRandom(high) {
     if (high <= 0) {
@@ -13,6 +14,8 @@ function singleRandom(high) {
         return Math.floor(Math.random()*high);
     }
 }
+
+exports.singleRandom = singleRandom;
 
 function threeUniqueRandoms(high) {
     var a,b,c;
@@ -31,3 +34,4 @@ function threeUniqueRandoms(high) {
     } while ((c === a) || (c === b));
     return [a,b,c];
 }
+exports.threeUniqueRandoms = threeUniqueRandoms;

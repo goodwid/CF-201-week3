@@ -21,6 +21,7 @@ function populateImages() {
 
 var clickTrap = document.getElementById('clicktrap');
 clickTrap.addEventListener ("click", function (e) {
+    globalClickCounter++;
     switch (e.target.id) {
         case "imgLeft": {
             images[imgLeft].nClicks++;
@@ -40,14 +41,22 @@ clickTrap.addEventListener ("click", function (e) {
 
     }
     populateImages();
+    if (globalClickCounter > 24) {
+        if (globalClickCounter > 16) {
+            unhideButtons();
+        }
+    }
 },false);
 
-
+function unhideButtons() {
+    buttons.setAttribute('style','visibility:visible');
+}
 
 // global variables holding display element image tags:
 var leftImageEl = document.getElementById('imgLeft');
 var centertImageEl = document.getElementById('imgCenter');
 var rightImageEl = document.getElementById('imgRight');
+var buttons = document.getElementById('buttonstorage');
 // these three hold the current object being displayed in each div.
 var imgLeft, imgCenter, imgRight = 0;
 var globalClickCounter = 0;

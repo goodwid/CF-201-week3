@@ -1,24 +1,34 @@
 body {
     background-color:  #FFFFFF;
     display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
 }
 
 
 .imageholder {
-    height: 200px;
-    width: 200px;
-    background-color: yellow;
-    display: inline;
+    height: 180px;
+    width: 180px;
+    /*background-color: yellow;*/
+    display: inherit;
     margin: 10px;
+    border-style:outset;
+    flex-wrap: wrap;
 
 }
- .clicktrap {
-     display: flex;
+ #clicktrap {
+     display: inherit;
      align-items: flex-start;
-     justify-content: space-around;
+     justify-content: center;
+     flex-direction: row;
  }
 
-
+#buttonstorage {
+    display: inherit;
+    justify-content:center;
+    visibility: hidden;
+}
 
 
 /** {
