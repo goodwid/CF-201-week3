@@ -4,4 +4,4 @@ var imageData = [
     ["football","images/football.jpg"],
     ["gears","images/gears.jpg"],
     ["horse","images/horse.jpg"]
-]
+];

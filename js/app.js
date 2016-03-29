@@ -5,20 +5,20 @@ function Image (iname,path) {
     this.nViews = 0;
     this.displayTag = function () {
         return '<img src="' + this.path + '" />';
-    }
+    };
 }
 
 function populateImages() {
-    var r = threeUniqueRandoms();
+    var r = threeUniqueRandoms(images.length);
     imgLeft = r[0];
     imgCenter = r[1];
     imgRight = r[2];
-    leftDiv.setAttribute('src',images[imgLeft].path);
-    centerDiv.setAttribute('src',images[imgCenter].path);
-    rightDiv.setAttribute('src',images[imgLeft].path);
+    leftImageEl.setAttribute('src',images[imgLeft].path);
+    centertImageEl.setAttribute('src',images[imgCenter].path);
+    rightImageEl.setAttribute('src',images[imgRight].path);
     images[imgLeft].nViews++;
     images[imgCenter].nViews++;
-    images[imgright].nViews++;
+    images[imgRight].nViews++;
 }
 
 
@@ -42,20 +42,23 @@ clickTrap.addEventListener ("click", function (e) {
         }
 
     }
+    populateImages();
 },false);
 
 
 
-// global variables holding display element divs:
-var leftDiv = document.getElementById('imgLeft')
-var centertDiv = document.getElementById('imgCenter')
-var rightDiv = document.getElementById('imgRight')
+// global variables holding display element image tags:
+var leftImageEl = document.getElementById('imgLeft');
+var centertImageEl = document.getElementById('imgCenter');
+var rightImageEl = document.getElementById('imgRight');
+// these three hold the current object being displayed in each div.
 var imgLeft, imgCenter, imgRight = 0;
 
-
+console.log(leftImageEl, centertImageEl, rightImageEl);
 
 // Creating and populating array of image objects
 images = [];
-for (var i=0; imageData.length;i++) {
-    images[i] = new Image(imageData[0],imageData[1]);
+for (var i=0; i<imageData.length;i++) {
+    images[i] = new Image(imageData[i][0],imageData[i][1]);
 }
+populateImages();
