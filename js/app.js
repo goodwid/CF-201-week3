@@ -41,15 +41,20 @@ clickTrap.addEventListener ("click", function (e) {
 
     }
     populateImages();
-    if (globalClickCounter > 24) {
-        if (globalClickCounter > 16) {
-            unhideButtons();
-        }
+    if (globalClickCounter > 16) {
+        unhideButtons();
     }
 },false);
 
+
+
+
 function unhideButtons() {
     buttons.setAttribute('style','visibility:visible');
+}
+function hideButtons() {
+    buttons.setAttribute('style','visibility:hidden');
+
 }
 
 // global variables holding display element image tags:

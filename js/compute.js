@@ -5,7 +5,7 @@ function randomRange(low,high) {
         return low;
     }
 }
-exports.randomRange = randomRange
+exports.randomRange = randomRange;
 
 function singleRandom(high) {
     if (high <= 0) {
