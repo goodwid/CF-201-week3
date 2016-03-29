@@ -18,8 +18,14 @@ function populateImages() {
     images[imgRight].nViews++;
 }
 
-
 var clickTrap = document.getElementById('clicktrap');
+var leftImageEl = document.getElementById('imgLeft');
+var centertImageEl = document.getElementById('imgCenter');
+var rightImageEl = document.getElementById('imgRight');
+var buttons = document.getElementById('buttonstorage');
+var continueButton = document.getElementById('continue');
+var resultsButton = document.getElementById('results');
+
 clickTrap.addEventListener ("click", function (e) {
     globalClickCounter++;
     switch (e.target.id) {
@@ -41,11 +47,13 @@ clickTrap.addEventListener ("click", function (e) {
 
     }
     populateImages();
-    if (globalClickCounter > 16) {
+    if ((globalClickCounter >= 5) && (!continueVoting)) {
         unhideButtons();
     }
 },false);
+continueButton.addEventListener ("click", function () {
 
+},false)
 
 
 
@@ -57,14 +65,13 @@ function hideButtons() {
 
 }
 
-// global variables holding display element image tags:
-var leftImageEl = document.getElementById('imgLeft');
-var centertImageEl = document.getElementById('imgCenter');
-var rightImageEl = document.getElementById('imgRight');
-var buttons = document.getElementById('buttonstorage');
+// global variables holding HTML element tags:
+
+
 // these three hold the current object being displayed in each div.
 var imgLeft, imgCenter, imgRight = 0;
 var globalClickCounter = 0;
+var continueVoting = false;
 
 // Creating and populating array of image objects
 images = [];

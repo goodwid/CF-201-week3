@@ -27,7 +27,7 @@ body {
 #buttonstorage {
     display: inherit;
     justify-content:center;
-    /*visibility: hidden;*/
+    visibility: hidden;
 }
 #graphs {
     display: inherit;
