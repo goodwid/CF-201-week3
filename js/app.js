@@ -25,24 +25,21 @@ function populateImages() {
     images[imgRight].nViews++;
 }
 
-function generateTextTable() {
-    out = '<pre>\n\n';
-    out +='    Number of times each item was clicked when displayed.\n\n\n'
-    for (var i=0;i<images.length;i++) {
-        out += '  ' + images[i].imageName + ' |' + textHistogram(images[i].nClicks);
-        out += '  (' + images[i].CVratio() + '%)\n'
-        out += '           |\n';
+function generateChartData() {
+    var results = {};
+    results.clicks = [];
+    results.CVratio = [];
+    results.names = [];
+    for (var i=0;i < images.length; i++) {
+        results.clicks[i] = images[i].nClicks;
+        results.CVratio[i] = images[i].CVratio();
+        results.names[i] = images[i].imageName;
     }
-    out +=     '           \----------------------------------------------------- \n';
-    out +=     '                1    2    3    4    5    6    7    8    9    10   \n\n';
-    out +=     '          (numbers in parentheses are the click/View ratio)\n'
-    out += '</pre>\n';
-    return out;
+    return results;
 }
 
 function displayResults() {
-    var resDiv = document.getElementById('results');
-    resDiv.innerHTML = generateTextTable();
+    showChart(generateChartData());
 }
 
 function unhideButtons() {
@@ -57,7 +54,6 @@ function eightMoreVotes() {
 }
 function trapListener (e) {
     if (e.target.childElementCount !== 0) {} else {
-        console.log ('clicked');
         globalClickCounter++;
         switch (e.target.id) {
             case "imgLeft": {
@@ -80,6 +76,85 @@ function trapListener (e) {
         }
     }
 }
+
+function showChart(results) {
+    $('#results').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Summary of clicks and clicks/views ratio'
+        },
+        // subtitle: {
+        //     text: 'Source: WorldClimate.com'
+        // },
+        xAxis: [{
+            categories: results.names,
+            crosshair: true
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}%',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: 'Click/View Ratio',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: 'clicks',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 120,
+            verticalAlign: 'top',
+            y: 100,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        series: [{
+            name: 'clicks',
+            type: 'column',
+            yAxis: 1,
+            data: results.clicks,
+            tooltip: {
+                valueSuffix: ''
+            }
+
+        }, {
+            name: 'Click/View ratio',
+            type: 'spline',
+            data: results.CVratio,
+            tooltip: {
+                valueSuffix: '%'
+            }
+        }]
+    });
+}
+
+
+
+
 
 // global variables holding HTML element tags:
 var clickTrap = document.getElementById('clicktrap');

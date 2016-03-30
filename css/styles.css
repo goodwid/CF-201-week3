@@ -4,10 +4,10 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     margin: 0;
     padding: 0;
 }
+
 header {
     width: 95%;
     display: flex;
@@ -17,13 +17,14 @@ header {
     color: #502050;
     text-shadow: 1px 4px 5px #FFFFFF;
 }
+
 section:first-of-type {
     width: 80%;
     margin: auto 75%;
     font-family: 'Nunito', sans-serif;
     text-shadow: 2px 2px 5px #FFFFFF;
-
 }
+
 #clicktrap {
     flex-wrap: wrap;
     display: inherit;
@@ -35,12 +36,9 @@ section:first-of-type {
 .imageholder {
     height: 180px;
     width: 180px;
-    /*background-color: yellow;*/
     display: inherit;
     margin: 10px;
     border-style:outset;
-
-
 }
 
 #buttonstorage {
@@ -48,16 +46,10 @@ section:first-of-type {
     justify-content:center;
     visibility: hidden;
 }
-#graphs {
-    display: inherit;
-    justify-content:center;
-    /*visibility: hidden;*/
-}
 
-#graphDisplay {
-    border: 1px solid black;
+#results {
+    margin-top: 30px;
 }
-
 /** {
     border: 1px dashed red;
 }*/
