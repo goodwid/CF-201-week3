@@ -5,6 +5,7 @@ function randomRange(low,high) {
         return low;
     }
 }
+exports.randomRange = randomRange;
 
 function singleRandom(high) {
     if (high <= 0) {
@@ -14,9 +15,10 @@ function singleRandom(high) {
     }
 }
 
+exports.singleRandom = singleRandom;
+
 function threeUniqueRandoms(high) {
     var a,b,c;
-    console.log('calling threeUniqueRandoms with ',high);
     if (high < 2) {
         console.error('Unable to generate three unique numbers from 0 to '+high+' as ',high, 'is too low');
         return [0,0,0];
@@ -31,4 +33,14 @@ function threeUniqueRandoms(high) {
         c = singleRandom(high);
     } while ((c === a) || (c === b));
     return [a,b,c];
+}
+exports.threeUniqueRandoms = threeUniqueRandoms;
+
+
+function textHistogram(num) {
+    var out='';
+    for (var i=0;i<num;i++) {
+        out = out + '#####';
+    }
+    return out;
 }
