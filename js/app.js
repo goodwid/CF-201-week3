@@ -1,8 +1,14 @@
 function Image (iname,path) {
     this.imageName = iname;
+    if (localStorage.getItem(iname)) {
+        this.nClicks = localStorage.getItem(iname+'.nClicks');
+        this.nViews = localStorage.getItem(iname+'.nViews');
+    } else {
+        this.nClicks = 0;
+        this.nViews = 0;
+    }
+    this.imageName = iname;
     this.path = path;
-    this.nClicks = 0;
-    this.nViews = 0;
     this.CVratio = function() {
         if (this.nViews === 0) {   // Make sure we never divide by zero!!
             return 0;
@@ -42,6 +48,7 @@ function displayResults() {
     hideButtons();
     unhideChart();
     unhideRestart();
+    storeToLocal();
     showChart(generateChartData());
 }
 
@@ -77,7 +84,7 @@ function eightMoreVotes() {
     globalClickCounter = 0;
 }
 
-function trapListener (e) {
+function trapListener(e) {
     if (e.target.childElementCount !== 0) {} else {
         globalClickCounter++;
         switch (e.target.id) {
@@ -198,8 +205,16 @@ function restart() {
 }
 
 
+function storeToLocal() {
+    for (var i=0;i < images.length;i++) {
+        localStorage.setItem(images[i].imageName,true);
+        localStorage.setItem(images[i].imageName + '.nClicks',images[i].nClicks);
+        localStorage.setItem(images[i].imageName + '.nViews',images[i].nViews);
+    }
+}
 
-// global variables holding HTML element tags:
+// global variables holding HTML DOM elements
+
 var clickTrap = document.getElementById('clicktrap');
 var leftImageEl = document.getElementById('imgLeft');
 var centertImageEl = document.getElementById('imgCenter');
@@ -214,10 +229,11 @@ var resultsEl = document.getElementById('results');
 clickTrap.addEventListener      ("click", trapListener,   false);
 resultsButton.addEventListener  ("click", displayResults, false);
 continueButton.addEventListener ("click", eightMoreVotes, false);
-restartButton.addEventListener  ("click", restart, false);
+restartButton.addEventListener  ("click", restart,        false);
 
 // these three hold the current object being displayed in each div.
 var imgLeft, imgCenter, imgRight = 0;
+
 var globalClickCounter = 0;
 var continueVoting = false;
 
