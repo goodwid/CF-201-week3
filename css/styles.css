@@ -26,6 +26,10 @@ section:first-of-type {
 }
 #clicktrap {
     flex-wrap: wrap;
+    display: inherit;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;
 }
 
 .imageholder {
@@ -38,12 +42,6 @@ section:first-of-type {
 
 
 }
- #clicktrap {
-     display: inherit;
-     align-items: flex-start;
-     justify-content: center;
-     flex-direction: row;
- }
 
 #buttonstorage {
     display: inherit;

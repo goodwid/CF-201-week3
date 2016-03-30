@@ -25,50 +25,6 @@ function populateImages() {
     images[imgRight].nViews++;
 }
 
-var clickTrap = document.getElementById('clicktrap');
-var leftImageEl = document.getElementById('imgLeft');
-var centertImageEl = document.getElementById('imgCenter');
-var rightImageEl = document.getElementById('imgRight');
-var buttons = document.getElementById('buttonstorage');
-var continueButton = document.getElementById('continue');
-var resultsButton = document.getElementById('showresults');
-
-clickTrap.addEventListener ("click", trapListener, false);
-resultsButton.addEventListener ("click", displayResults, false);
-continueButton.addEventListener ("click" ,eightMoreVotes, false);
-
-function eightMoreVotes() {
-    alert("Feature not implemented yet!");
-}
-
-function trapListener (e) {
-    if (e.target.childElementCount !== 0) {} else {
-        console.log ('clicked');
-        globalClickCounter++;
-        switch (e.target.id) {
-            case "imgLeft": {
-                images[imgLeft].nClicks++;
-                break;
-            }
-            case "imgCenter": {
-                images[imgCenter].nClicks++;
-                break;
-            }
-            case 'imgRight': {
-                images[imgRight].nClicks++;
-                break;
-            }
-        }
-        populateImages();
-        if ((globalClickCounter >= 16) && (!continueVoting)) {
-            clickTrap.removeEventListener ("click", trapListener);
-            unhideButtons();
-        }
-    }
-}
-
-
-
 function generateTextTable() {
     out = '<pre>\n\n';
     out +='    Number of times each item was clicked when displayed.\n\n\n'
@@ -96,9 +52,47 @@ function hideButtons() {
     buttons.setAttribute('style','visibility:hidden');
 
 }
+function eightMoreVotes() {
+    alert("Feature not implemented yet!");
+}
+function trapListener (e) {
+    if (e.target.childElementCount !== 0) {} else {
+        console.log ('clicked');
+        globalClickCounter++;
+        switch (e.target.id) {
+            case "imgLeft": {
+                images[imgLeft].nClicks++;
+                break;
+            }
+            case "imgCenter": {
+                images[imgCenter].nClicks++;
+                break;
+            }
+            case 'imgRight': {
+                images[imgRight].nClicks++;
+                break;
+            }
+        }
+        populateImages();
+        if ((globalClickCounter >= 16) && (!continueVoting)) {
+            clickTrap.removeEventListener ("click", trapListener);
+            unhideButtons();
+        }
+    }
+}
 
 // global variables holding HTML element tags:
+var clickTrap = document.getElementById('clicktrap');
+var leftImageEl = document.getElementById('imgLeft');
+var centertImageEl = document.getElementById('imgCenter');
+var rightImageEl = document.getElementById('imgRight');
+var buttons = document.getElementById('buttonstorage');
+var continueButton = document.getElementById('continue');
+var resultsButton = document.getElementById('showresults');
 
+clickTrap.addEventListener      ("click", trapListener,   false);
+resultsButton.addEventListener  ("click", displayResults, false);
+continueButton.addEventListener ("click", eightMoreVotes, false);
 
 // these three hold the current object being displayed in each div.
 var imgLeft, imgCenter, imgRight = 0;
