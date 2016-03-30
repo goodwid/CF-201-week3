@@ -27,9 +27,12 @@ var centertImageEl = document.getElementById('imgCenter');
 var rightImageEl = document.getElementById('imgRight');
 var buttons = document.getElementById('buttonstorage');
 var continueButton = document.getElementById('continue');
-var resultsButton = document.getElementById('results');
+var resultsButton = document.getElementById('showresults');
 
-clickTrap.addEventListener ("click", function (e) {
+clickTrap.addEventListener ("click", trapListener, false);
+resultsButton.addEventListener ("click", displayResults, false);
+
+function trapListener (e) {
     if (e.target.childElementCount !== 0) {} else {
         console.log ('clicked');
         globalClickCounter++;
@@ -49,16 +52,30 @@ clickTrap.addEventListener ("click", function (e) {
         }
         populateImages();
         if ((globalClickCounter >= 16) && (!continueVoting)) {
+            clickTrap.removeEventListener ("click", trapListener);
             unhideButtons();
         }
     }
-},false);
-
-continueButton.addEventListener ("click", function () {
-
-},false)
+}
 
 
+
+function generateTextTable() {
+    out = '<pre>\n';
+    for (var i=0;i<images.length;i++) {
+        out += '  ' + images[i].imageName + ' |' + textHistogram(images[i].nClicks) + '\n';
+        out += '           |\n';
+    }
+    out +=     '           \----------------------------------------------------- \n';
+    out +=     '                1    2    3    4    5    6    7    8\n';
+    out += '</pre>\n';
+    return out;
+}
+
+function displayResults() {
+    var resDiv = document.getElementById('results');
+    resDiv.innerHTML = generateTextTable();
+}
 
 function unhideButtons() {
     buttons.setAttribute('style','visibility:visible');

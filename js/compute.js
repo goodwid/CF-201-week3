@@ -35,3 +35,12 @@ function threeUniqueRandoms(high) {
     return [a,b,c];
 }
 exports.threeUniqueRandoms = threeUniqueRandoms;
+
+
+function textHistogram(num) {
+    var out='';
+    for (var i=0;i<num;i++) {
+        out = out + '#####';
+    }
+    return out;
+}
