@@ -19,7 +19,7 @@ header {
 }
 
 section:first-of-type {
-    width: 80%;
+    width: 60%;
     margin: auto 75%;
     font-family: 'Nunito', sans-serif;
     text-shadow: 2px 2px 5px #FFFFFF;
@@ -41,7 +41,7 @@ section:first-of-type {
     border-style:outset;
 }
 
-#buttonstorage {
+#buttonstorage, #restartstorage{
     display: inherit;
     justify-content:center;
     visibility: hidden;

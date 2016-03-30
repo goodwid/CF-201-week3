@@ -39,19 +39,44 @@ function generateChartData() {
 }
 
 function displayResults() {
+    hideButtons();
+    unhideChart();
+    unhideRestart();
     showChart(generateChartData());
 }
 
-function unhideButtons() {
-    buttons.setAttribute('style','visibility:visible');
+function unhideChart() {
+    resultsEl.setAttribute('style','visibility:visible');
 }
-function hideButtons() {
-    buttons.setAttribute('style','visibility:hidden');
 
+function hideChart() {
+    resultsEl.setAttribute('style','visibility:hidden');
 }
+
+function unhideButtons() {
+    buttonsEl.setAttribute('style','visibility:visible');
+}
+
+function hideButtons() {
+    buttonsEl.setAttribute('style','visibility:hidden');
+}
+
+function unhideRestart() {
+    restartEl.setAttribute('style','visibility:visible');
+}
+
+function hideRestart() {
+    restartEl.setAttribute('style','visibility:hidden');
+}
+
 function eightMoreVotes() {
-    alert("Feature not implemented yet!");
+    // alert("Feature not implemented yet!");
+    clickTrap.addEventListener ("click", trapListener, false);
+    continueVoting = true;
+    hideButtons();
+    globalClickCounter = 0;
 }
+
 function trapListener (e) {
     if (e.target.childElementCount !== 0) {} else {
         globalClickCounter++;
@@ -70,7 +95,12 @@ function trapListener (e) {
             }
         }
         populateImages();
-        if ((globalClickCounter >= 16) && (!continueVoting)) {
+        if ((globalClickCounter >= 8) && (continueVoting)) {
+            clickTrap.removeEventListener ("click", trapListener);
+            unhideRestart();
+            unhideChart();
+            displayResults();
+        } else if ((globalClickCounter >= 16) && (!continueVoting)) {
             clickTrap.removeEventListener ("click", trapListener);
             unhideButtons();
         }
@@ -126,9 +156,9 @@ function showChart(results) {
         legend: {
             layout: 'vertical',
             align: 'left',
-            x: 120,
+            x: 80,
             verticalAlign: 'top',
-            y: 65,
+            y: 40,
             floating: true,
             backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
         },
@@ -156,7 +186,16 @@ function showChart(results) {
 
 }
 
-
+function restart() {
+    hideRestart();
+    hideChart();
+    globalClickCounter = 0;
+    continueVoting = false;
+    clickTrap.addEventListener ("click", trapListener, false);
+    $('html, body').animate( {
+        scrollTop: $('header').offset().top
+    }, 'slow');
+}
 
 
 
@@ -165,13 +204,17 @@ var clickTrap = document.getElementById('clicktrap');
 var leftImageEl = document.getElementById('imgLeft');
 var centertImageEl = document.getElementById('imgCenter');
 var rightImageEl = document.getElementById('imgRight');
-var buttons = document.getElementById('buttonstorage');
+var buttonsEl = document.getElementById('buttonstorage');
+var restartEl = document.getElementById('restartstorage');
 var continueButton = document.getElementById('continue');
 var resultsButton = document.getElementById('showresults');
+var restartButton = document.getElementById('restart');
+var resultsEl = document.getElementById('results');
 
 clickTrap.addEventListener      ("click", trapListener,   false);
 resultsButton.addEventListener  ("click", displayResults, false);
 continueButton.addEventListener ("click", eightMoreVotes, false);
+restartButton.addEventListener  ("click", restart, false);
 
 // these three hold the current object being displayed in each div.
 var imgLeft, imgCenter, imgRight = 0;
