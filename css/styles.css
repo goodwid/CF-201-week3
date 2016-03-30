@@ -18,6 +18,19 @@ header {
     text-shadow: 1px 4px 5px #FFFFFF;
 }
 
+footer {
+    width: 95%;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Candal', sans-serif;
+    margin: auto 80%;
+    color: #502050;
+    text-shadow: 1px 4px 5px #FFFFFF;
+    font-size: 0.7em;
+}
+
 section:first-of-type {
     width: 60%;
     margin: auto 75%;
@@ -48,8 +61,8 @@ section:first-of-type {
 }
 
 #results {
-    margin: 0 auto;
-    width: 65%;
+    margin: 1em auto 0 auto;
+    width: 85%;
     min-width: 310px;
     height: 400px;
 }
