@@ -128,7 +128,7 @@ function showChart(results) {
             align: 'left',
             x: 120,
             verticalAlign: 'top',
-            y: 100,
+            y: 65,
             floating: true,
             backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
         },
@@ -150,6 +150,10 @@ function showChart(results) {
             }
         }]
     });
+    $('html, body').animate( {
+        scrollTop: $('#results').offset().top
+    }, 'slow');
+
 }
 
 
