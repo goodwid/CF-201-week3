@@ -4,7 +4,11 @@ function Image (iname,path) {
     this.nClicks = 0;
     this.nViews = 0;
     this.CVratio = function() {
-        return Math.round((this.nClicks/this.nViews)*100)/100;
+        if (this.nViews === 0) {   // Make sure we never divide by zero!!
+            return 0;
+        } else {
+            return Math.round((this.nClicks/this.nViews)*100);
+        }
     };
 }
 
@@ -31,6 +35,11 @@ var resultsButton = document.getElementById('showresults');
 
 clickTrap.addEventListener ("click", trapListener, false);
 resultsButton.addEventListener ("click", displayResults, false);
+continueButton.addEventListener ("click" ,eightMoreVotes, false);
+
+function eightMoreVotes() {
+    alert("Feature not implemented yet!");
+}
 
 function trapListener (e) {
     if (e.target.childElementCount !== 0) {} else {
@@ -61,13 +70,16 @@ function trapListener (e) {
 
 
 function generateTextTable() {
-    out = '<pre>\n';
+    out = '<pre>\n\n';
+    out +='    Number of times each item was clicked when displayed.\n\n\n'
     for (var i=0;i<images.length;i++) {
-        out += '  ' + images[i].imageName + ' |' + textHistogram(images[i].nClicks) + '\n';
+        out += '  ' + images[i].imageName + ' |' + textHistogram(images[i].nClicks);
+        out += '  (' + images[i].CVratio() + '%)\n'
         out += '           |\n';
     }
     out +=     '           \----------------------------------------------------- \n';
-    out +=     '                1    2    3    4    5    6    7    8    9    10   \n';
+    out +=     '                1    2    3    4    5    6    7    8    9    10   \n\n';
+    out +=     '          (numbers in parentheses are the click/View ratio)\n'
     out += '</pre>\n';
     return out;
 }
