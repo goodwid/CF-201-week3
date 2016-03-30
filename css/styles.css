@@ -2,10 +2,26 @@ body {
     background-color:  #FFFFFF;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     margin: 0;
     padding: 0;
 }
-
+header {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
+    margin: auto 80%;
+}
+section:first-of-type {
+    width: 80%;
+    margin: auto 75%;
+}
+#clicktrap {
+    flex-wrap: wrap;
+}
 
 .imageholder {
     height: 180px;
@@ -14,7 +30,7 @@ body {
     display: inherit;
     margin: 10px;
     border-style:outset;
-    flex-wrap: wrap;
+
 
 }
  #clicktrap {

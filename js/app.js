@@ -67,7 +67,7 @@ function generateTextTable() {
         out += '           |\n';
     }
     out +=     '           \----------------------------------------------------- \n';
-    out +=     '                1    2    3    4    5    6    7    8\n';
+    out +=     '                1    2    3    4    5    6    7    8    9    10   \n';
     out += '</pre>\n';
     return out;
 }
