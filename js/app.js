@@ -3,6 +3,9 @@ function Image (iname,path) {
     this.path = path;
     this.nClicks = 0;
     this.nViews = 0;
+    this.CVratio = function() {
+        return Math.round((this.nClicks/this.nViews)*100)/100;
+    };
 }
 
 function populateImages() {
@@ -27,30 +30,30 @@ var continueButton = document.getElementById('continue');
 var resultsButton = document.getElementById('results');
 
 clickTrap.addEventListener ("click", function (e) {
-    globalClickCounter++;
-    switch (e.target.id) {
-        case "imgLeft": {
-            images[imgLeft].nClicks++;
-            console.log('left');
-            break;
+    if (e.target.childElementCount !== 0) {} else {
+        console.log ('clicked');
+        globalClickCounter++;
+        switch (e.target.id) {
+            case "imgLeft": {
+                images[imgLeft].nClicks++;
+                break;
+            }
+            case "imgCenter": {
+                images[imgCenter].nClicks++;
+                break;
+            }
+            case 'imgRight': {
+                images[imgRight].nClicks++;
+                break;
+            }
         }
-        case "imgCenter": {
-            images[imgCenter].nClicks++;
-            console.log('center');
-            break;
+        populateImages();
+        if ((globalClickCounter >= 16) && (!continueVoting)) {
+            unhideButtons();
         }
-        case 'imgRight': {
-            images[imgRight].nClicks++;
-            console.log('right');
-            break;
-        }
-
-    }
-    populateImages();
-    if ((globalClickCounter >= 5) && (!continueVoting)) {
-        unhideButtons();
     }
 },false);
+
 continueButton.addEventListener ("click", function () {
 
 },false)

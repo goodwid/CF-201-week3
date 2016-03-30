@@ -17,7 +17,6 @@ for (var i=0;i<100;i++) {
 
 function test_singleRandom_Range() {
     describe('Test to be sure that singlerandom returns a number between 0 and the parameter.', function() {
-        // it('should check first question', function() {     assert.deepEqual(compute.getQuestion(0), 'first');   });
         it ('Passing 90 to singleRandoms', function() {
             var n = compute.singleRandom(90);
               assert((n <= 90) && (n >= 0));
