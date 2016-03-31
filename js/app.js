@@ -1,13 +1,5 @@
 function Image (iname,path) {
     this.imageName = iname;
-    if (localStorage.getItem(iname)) {
-        this.nClicks = parseInt(localStorage.getItem(iname+'.nClicks'));
-        this.nViews = parseInt(localStorage.getItem(iname+'.nViews'));
-    } else {
-        this.nClicks = 0;
-        this.nViews = 0;
-    }
-    this.imageName = iname;
     this.path = path;
     this.CVratio = function() {
         if (this.nViews === 0) {   // Make sure we never divide by zero!!
@@ -19,13 +11,13 @@ function Image (iname,path) {
 }
 
 function populateImages() {
-
     leftImageEl.setAttribute('src',images[state.imgLeft].path);
     centertImageEl.setAttribute('src',images[state.imgCenter].path);
     rightImageEl.setAttribute('src',images[state.imgRight].path);
     images[state.imgLeft].nViews++;
     images[state.imgCenter].nViews++;
     images[state.imgRight].nViews++;
+
 }
 
 function generateChartData() {
@@ -76,7 +68,12 @@ function trapListener(e) {
                 break;
             }
         }
-        storeToLocal();
+        var r = threeUniqueRandoms(images.length);
+        state.imgLeft = r[0];
+        state.imgCenter = r[1];
+        state.imgRight = r[2];
+        updateState();
+        updateImages();
         populateImages();
 
         if ((state.gcc >= 8) && (state.cv)) {
@@ -180,6 +177,7 @@ function restart() {
     hideChart();
     state.gcc = 0;
     state.cv = false;
+    state.trapListener = true;
     updateState();
     clickTrap.addEventListener ("click", trapListener, false);
     $('html, body').animate( {
@@ -188,25 +186,19 @@ function restart() {
 }
 
 
-function storeToLocal() {
-    for (var i=0;i < images.length;i++) {
-        localStorage.setItem(images[i].imageName,true);
-        localStorage.setItem(images[i].imageName + '.nClicks',images[i].nClicks);
-        localStorage.setItem(images[i].imageName + '.nViews',images[i].nViews);
-    }
+function updateImages() {
+    localStorage.images = JSON.stringify(images);
 }
 
 function restoreState() {
     if (localStorage.state) {
-        initImageArray();
         state = JSON.parse(localStorage.state);
         if (state.buttonsVis)  { unhideButtons();}
         if (state.chartVis)    { displayResults();}
         if (state.restartVis)  { unhideRestart();}
         if (!state.trapListener) { clickTrap.removeEventListener ("click", trapListener);}
     } else {
-        initImageArray();
-        r = threeUniqueRandoms(image.length);
+        var r = threeUniqueRandoms(imageData.length);
         state = {
             imgLeft: r[0],
             imgCenter: r[1],
@@ -219,7 +211,19 @@ function restoreState() {
             gcc: 0,  // global click counter
             cv: false // continue voting
         };
-
+    }
+    if (localStorage.images) {
+        images = JSON.parse(localStorage.images);
+        console.log(images);
+        images.prototype.CVratio = function() {
+            if (this.nViews === 0) {   // Make sure we never divide by zero!!
+                return 0;
+            } else {
+                return Math.round((this.nClicks/this.nViews)*100);
+            }
+        };
+    } else {
+        initImageArray();
     }
     populateImages();
 }
@@ -232,6 +236,7 @@ function initImageArray() {
     for (var i=0; i<imageData.length;i++) {
         images[i] = new Image(imageData[i][0],imageData[i][1]);
     }
+    updateImages();
 }
 
 
@@ -253,13 +258,7 @@ resultsButton.addEventListener  ("click", displayResults, false);
 continueButton.addEventListener ("click", eightMoreVotes, false);
 restartButton.addEventListener  ("click", restart,        false);
 
-// these three hold the current object being displayed in each div.
-
 var state = {};
 var images = [];
 restoreState();
 updateState();
-
-// Creating and populating array of image objects
-
-// initially populating the images.
