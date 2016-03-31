@@ -44,3 +44,33 @@ function textHistogram(num) {
     }
     return out;
 }
+
+function unhideChart() {
+    resultsEl.setAttribute('style','visibility:visible');
+    state.chartVis = true;
+}
+
+function hideChart() {
+    resultsEl.setAttribute('style','visibility:hidden');
+    state.chartVis = false;
+}
+
+function unhideButtons() {
+    buttonsEl.setAttribute('style','visibility:visible');
+    state.buttonsVis = true;
+}
+
+function hideButtons() {
+    buttonsEl.setAttribute('style','visibility:hidden');
+    state.buttonsVis = false;
+}
+
+function unhideRestart() {
+    restartEl.setAttribute('style','visibility:visible');
+    state.restartVis = true;
+}
+
+function hideRestart() {
+    restartEl.setAttribute('style','visibility:hidden');
+    state.restartVis = false;
+}

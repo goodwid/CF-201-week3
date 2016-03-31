@@ -19,16 +19,13 @@ function Image (iname,path) {
 }
 
 function populateImages() {
-    var r = threeUniqueRandoms(images.length);
-    imgLeft = r[0];
-    imgCenter = r[1];
-    imgRight = r[2];
-    leftImageEl.setAttribute('src',images[imgLeft].path);
-    centertImageEl.setAttribute('src',images[imgCenter].path);
-    rightImageEl.setAttribute('src',images[imgRight].path);
-    images[imgLeft].nViews++;
-    images[imgCenter].nViews++;
-    images[imgRight].nViews++;
+
+    leftImageEl.setAttribute('src',images[state.imgLeft].path);
+    centertImageEl.setAttribute('src',images[state.imgCenter].path);
+    rightImageEl.setAttribute('src',images[state.imgRight].path);
+    images[state.imgLeft].nViews++;
+    images[state.imgCenter].nViews++;
+    images[state.imgRight].nViews++;
 }
 
 function generateChartData() {
@@ -48,69 +45,54 @@ function displayResults() {
     hideButtons();
     unhideChart();
     unhideRestart();
-    storeToLocal();
     showChart(generateChartData());
+    updateState();
 }
 
-function unhideChart() {
-    resultsEl.setAttribute('style','visibility:visible');
-}
 
-function hideChart() {
-    resultsEl.setAttribute('style','visibility:hidden');
-}
-
-function unhideButtons() {
-    buttonsEl.setAttribute('style','visibility:visible');
-}
-
-function hideButtons() {
-    buttonsEl.setAttribute('style','visibility:hidden');
-}
-
-function unhideRestart() {
-    restartEl.setAttribute('style','visibility:visible');
-}
-
-function hideRestart() {
-    restartEl.setAttribute('style','visibility:hidden');
-}
 
 function eightMoreVotes() {
     // alert("Feature not implemented yet!");
     clickTrap.addEventListener ("click", trapListener, false);
-    continueVoting = true;
+    state.cv = true;
     hideButtons();
-    globalClickCounter = 0;
+    state.gcc = 0;
 }
 
 function trapListener(e) {
     if (e.target.childElementCount !== 0) {} else {
-        globalClickCounter++;
+        state.gcc++;
         switch (e.target.id) {
             case "imgLeft": {
-                images[imgLeft].nClicks++;
+                images[state.imgLeft].nClicks++;
                 break;
             }
             case "imgCenter": {
-                images[imgCenter].nClicks++;
+                images[state.imgCenter].nClicks++;
                 break;
             }
             case 'imgRight': {
-                images[imgRight].nClicks++;
+                images[state.imgRight].nClicks++;
                 break;
             }
         }
+        storeToLocal();
         populateImages();
-        if ((globalClickCounter >= 8) && (continueVoting)) {
+
+        if ((state.gcc >= 8) && (state.cv)) {
             clickTrap.removeEventListener ("click", trapListener);
             unhideRestart();
             unhideChart();
             displayResults();
-        } else if ((globalClickCounter >= 16) && (!continueVoting)) {
+            updateState();
+        } else if ((state.gcc >= 16) && (!state.cv)) {
             clickTrap.removeEventListener ("click", trapListener);
             unhideButtons();
+            updateState();
+        } else {
+            updateState();
         }
+
     }
 }
 
@@ -196,8 +178,9 @@ function showChart(results) {
 function restart() {
     hideRestart();
     hideChart();
-    globalClickCounter = 0;
-    continueVoting = false;
+    state.gcc = 0;
+    state.cv = false;
+    updateState();
     clickTrap.addEventListener ("click", trapListener, false);
     $('html, body').animate( {
         scrollTop: $('header').offset().top
@@ -212,6 +195,45 @@ function storeToLocal() {
         localStorage.setItem(images[i].imageName + '.nViews',images[i].nViews);
     }
 }
+
+function restoreState() {
+    if (localStorage.state) {
+        initImageArray();
+        state = JSON.parse(localStorage.state);
+        if (state.buttonsVis)  { unhideButtons();}
+        if (state.chartVis)    { displayResults();}
+        if (state.restartVis)  { unhideRestart();}
+        if (!state.trapListener) { clickTrap.removeEventListener ("click", trapListener);}
+    } else {
+        initImageArray();
+        r = threeUniqueRandoms(image.length);
+        state = {
+            imgLeft: r[0],
+            imgCenter: r[1],
+            imgRight: r[2],
+            chartVis: false,
+            buttonsVis: false,
+            restartVis: false,
+            trapListener: true,
+            displayedImages: [],
+            gcc: 0,  // global click counter
+            cv: false // continue voting
+        };
+
+    }
+    populateImages();
+}
+
+function updateState() {
+    localStorage.state = JSON.stringify(state);
+}
+
+function initImageArray() {
+    for (var i=0; i<imageData.length;i++) {
+        images[i] = new Image(imageData[i][0],imageData[i][1]);
+    }
+}
+
 
 // global variables holding HTML DOM elements
 
@@ -232,15 +254,12 @@ continueButton.addEventListener ("click", eightMoreVotes, false);
 restartButton.addEventListener  ("click", restart,        false);
 
 // these three hold the current object being displayed in each div.
-var imgLeft, imgCenter, imgRight = 0;
 
-var globalClickCounter = 0;
-var continueVoting = false;
+var state = {};
+var images = [];
+restoreState();
+updateState();
 
 // Creating and populating array of image objects
-images = [];
-for (var i=0; i<imageData.length;i++) {
-    images[i] = new Image(imageData[i][0],imageData[i][1]);
-}
+
 // initially populating the images.
-populateImages();
