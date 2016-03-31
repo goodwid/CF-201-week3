@@ -1,8 +1,8 @@
 function Image (iname,path) {
     this.imageName = iname;
     if (localStorage.getItem(iname)) {
-        this.nClicks = localStorage.getItem(iname+'.nClicks');
-        this.nViews = localStorage.getItem(iname+'.nViews');
+        this.nClicks = parseInt(localStorage.getItem(iname+'.nClicks'));
+        this.nViews = parseInt(localStorage.getItem(iname+'.nViews'));
     } else {
         this.nClicks = 0;
         this.nViews = 0;
