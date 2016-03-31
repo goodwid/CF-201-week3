@@ -1,13 +1,16 @@
 function Image (iname,path) {
     this.imageName = iname;
     this.path = path;
-    this.CVratio = function() {
-        if (this.nViews === 0) {   // Make sure we never divide by zero!!
-            return 0;
-        } else {
-            return Math.round((this.nClicks/this.nViews)*100);
-        }
-    };
+    this.nClicks = 0;
+    this.nViews = 0;
+}
+
+function CVratio(clicks, views) {
+    if (views === 0) {   // Make sure we never divide by zero!!
+        return 0;
+    } else {
+        return Math.round((clicks/views)*100);
+    }
 }
 
 function populateImages() {
@@ -17,7 +20,6 @@ function populateImages() {
     images[state.imgLeft].nViews++;
     images[state.imgCenter].nViews++;
     images[state.imgRight].nViews++;
-
 }
 
 function generateChartData() {
@@ -27,7 +29,7 @@ function generateChartData() {
     results.names = [];
     for (var i=0;i < images.length; i++) {
         results.clicks[i] = images[i].nClicks;
-        results.CVratio[i] = images[i].CVratio();
+        results.CVratio[i] = CVratio(images[i].nClicks,images[i].nViews);
         results.names[i] = images[i].imageName;
     }
     return results;
@@ -41,14 +43,13 @@ function displayResults() {
     updateState();
 }
 
-
-
 function eightMoreVotes() {
     // alert("Feature not implemented yet!");
     clickTrap.addEventListener ("click", trapListener, false);
     state.cv = true;
     hideButtons();
     state.gcc = 0;
+    updateState();
 }
 
 function trapListener(e) {
@@ -191,6 +192,11 @@ function updateImages() {
 }
 
 function restoreState() {
+    if (localStorage.images) {
+        images = JSON.parse(localStorage.images);
+    } else {
+        initImageArray();
+    }
     if (localStorage.state) {
         state = JSON.parse(localStorage.state);
         if (state.buttonsVis)  { unhideButtons();}
@@ -211,19 +217,6 @@ function restoreState() {
             gcc: 0,  // global click counter
             cv: false // continue voting
         };
-    }
-    if (localStorage.images) {
-        images = JSON.parse(localStorage.images);
-        console.log(images);
-        images.prototype.CVratio = function() {
-            if (this.nViews === 0) {   // Make sure we never divide by zero!!
-                return 0;
-            } else {
-                return Math.round((this.nClicks/this.nViews)*100);
-            }
-        };
-    } else {
-        initImageArray();
     }
     populateImages();
 }
