@@ -1,11 +1,11 @@
-function Image (iname,path) {
+function Image (iname,path) {  // image object constructor.
     this.imageName = iname;
     this.path = path;
     this.nClicks = 0;
     this.nViews = 0;
 }
 
-function CVratio(clicks, views) {
+function CVratio(clicks, views) {  // calculate the click/view ratio.
     if (views === 0) {   // Make sure we never divide by zero!!
         return 0;
     } else {
@@ -13,7 +13,7 @@ function CVratio(clicks, views) {
     }
 }
 
-function populateImages() {
+function populateImages() {  // changes the images displayed.
     leftImageEl.setAttribute('src',images[state.imgLeft].path);
     centertImageEl.setAttribute('src',images[state.imgCenter].path);
     rightImageEl.setAttribute('src',images[state.imgRight].path);
@@ -22,7 +22,7 @@ function populateImages() {
     images[state.imgRight].nViews++;
 }
 
-function generateChartData() {
+function generateChartData() {  // creates arrays for the chart generation function.
     var results = {};
     results.clicks = [];
     results.CVratio = [];
@@ -35,7 +35,7 @@ function generateChartData() {
     return results;
 }
 
-function displayResults() {
+function displayResults() {  // hides the appropriate elements and generates the chart.
     hideButtons();
     unhideChart();
     unhideRestart();
@@ -43,8 +43,7 @@ function displayResults() {
     updateState();
 }
 
-function eightMoreVotes() {
-    // alert("Feature not implemented yet!");
+function eightMoreVotes() { // configures app for 8 more clicks prior to showing results.
     clickTrap.addEventListener ("click", trapListener, false);
     state.trapListener = true;
     state.cv = true;
@@ -53,7 +52,7 @@ function eightMoreVotes() {
     updateState();
 }
 
-function trapListener(e) {
+function trapListener(e) { // Main routine for monitoring clicks on images.
     if (e.target.childElementCount !== 0) {} else {
         state.gcc++;
         switch (e.target.id) {
@@ -97,7 +96,7 @@ function trapListener(e) {
     }
 }
 
-function showChart(results) {
+function showChart(results) {   // uses highcharts to display data, function taken from snippet on highcharts' website and modded.
     $('#results').highcharts({
         chart: {
             zoomType: 'xy'
@@ -176,7 +175,7 @@ function showChart(results) {
 
 }
 
-function restart() {
+function restart() {  // restores the voting process to the initial 16 votes.
     hideRestart();
     hideChart();
     state.gcc = 0;
@@ -189,12 +188,12 @@ function restart() {
     }, 'slow');
 }
 
-
-function updateImages() {
+function updateImages() {   // pushes current state of images to local storage
     localStorage.images = JSON.stringify(images);
 }
 
-function restoreState() {
+function restoreState() {  // Main initialization routine, restores the state and images from local storage if available, or initializes new data if cached data is not present.
+
     if (localStorage.images) {
         images = JSON.parse(localStorage.images);
     } else {
@@ -224,19 +223,22 @@ function restoreState() {
     populateImages();
 }
 
-function updateState() {
+function updateState() {   // pushes currnet state to local storage.
     localStorage.state = JSON.stringify(state);
 }
 
-function initImageArray() {
+function initImageArray() {  // uses the constructor to create image objects.
     for (var i=0; i<imageData.length;i++) {
         images[i] = new Image(imageData[i][0],imageData[i][1]);
     }
     updateImages();
 }
 
-
-// global variables holding HTML DOM elements
+/*************************************************\
+|
+|           global variables holding HTML DOM elements
+|
+\************************************************/
 
 var clickTrap = document.getElementById('clicktrap');
 var leftImageEl = document.getElementById('imgLeft');
@@ -253,6 +255,12 @@ clickTrap.addEventListener      ("click", trapListener,   false);
 resultsButton.addEventListener  ("click", displayResults, false);
 continueButton.addEventListener ("click", eightMoreVotes, false);
 restartButton.addEventListener  ("click", restart,        false);
+
+/****************************************\
+|
+|         BEGIN main app logic.
+|
+\***************************************/
 
 var state = {};
 var images = [];
