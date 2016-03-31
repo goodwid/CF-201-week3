@@ -51,6 +51,7 @@ function unhideChart() {
 }
 
 function hideChart() {
+    $('#results').highcharts().destroy();
     resultsEl.setAttribute('style','visibility:hidden');
     state.chartVis = false;
 }

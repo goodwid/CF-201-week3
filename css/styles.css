@@ -64,7 +64,7 @@ section:first-of-type {
     margin: 1em auto 0 auto;
     width: 65%;
     min-width: 310px;
-    height: 400px;
+    height: auto;
 }
 /** {
     border: 1px dashed red;
