@@ -4,10 +4,10 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     margin: 0;
     padding: 0;
 }
+
 header {
     width: 95%;
     display: flex;
@@ -17,13 +17,27 @@ header {
     color: #502050;
     text-shadow: 1px 4px 5px #FFFFFF;
 }
+
+footer {
+    width: 95%;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Candal', sans-serif;
+    margin: auto 80%;
+    color: #502050;
+    text-shadow: 1px 4px 5px #FFFFFF;
+    font-size: 0.7em;
+}
+
 section:first-of-type {
-    width: 80%;
+    width: 60%;
     margin: auto 75%;
     font-family: 'Nunito', sans-serif;
     text-shadow: 2px 2px 5px #FFFFFF;
-
 }
+
 #clicktrap {
     flex-wrap: wrap;
     display: inherit;
@@ -35,29 +49,23 @@ section:first-of-type {
 .imageholder {
     height: 180px;
     width: 180px;
-    /*background-color: yellow;*/
     display: inherit;
     margin: 10px;
     border-style:outset;
-
-
 }
 
-#buttonstorage {
+#buttonstorage, #restartstorage{
     display: inherit;
     justify-content:center;
     visibility: hidden;
 }
-#graphs {
-    display: inherit;
-    justify-content:center;
-    /*visibility: hidden;*/
-}
 
-#graphDisplay {
-    border: 1px solid black;
+#results {
+    margin: 1em auto 0 auto;
+    width: 65%;
+    min-width: 310px;
+    height: 400px;
 }
-
 /** {
     border: 1px dashed red;
 }*/
