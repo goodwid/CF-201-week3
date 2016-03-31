@@ -46,6 +46,7 @@ function displayResults() {
 function eightMoreVotes() {
     // alert("Feature not implemented yet!");
     clickTrap.addEventListener ("click", trapListener, false);
+    state.trapListener = true;
     state.cv = true;
     hideButtons();
     state.gcc = 0;
@@ -79,12 +80,14 @@ function trapListener(e) {
 
         if ((state.gcc >= 8) && (state.cv)) {
             clickTrap.removeEventListener ("click", trapListener);
+            state.trapListener = false;
             unhideRestart();
             unhideChart();
             displayResults();
             updateState();
         } else if ((state.gcc >= 16) && (!state.cv)) {
             clickTrap.removeEventListener ("click", trapListener);
+            state.trapListener = false;
             unhideButtons();
             updateState();
         } else {
@@ -202,7 +205,7 @@ function restoreState() {
         if (state.buttonsVis)  { unhideButtons();}
         if (state.chartVis)    { displayResults();}
         if (state.restartVis)  { unhideRestart();}
-        if (!state.trapListener) { clickTrap.removeEventListener ("click", trapListener);}
+        if (state.trapListener === false) { clickTrap.removeEventListener ("click", trapListener);}
     } else {
         var r = threeUniqueRandoms(imageData.length);
         state = {
