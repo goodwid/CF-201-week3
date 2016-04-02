@@ -1,22 +1,49 @@
+@import url(https://fonts.googleapis.com/css?family=Merienda:400,700);
+
 body {
-    background-color:  #e0C0e0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background-color:  #273E66;
     margin: 0;
     padding: 0;
 }
 
+#content {
+    position: absolute;
+    top: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    clear: both;
+}
+
 header {
-    width: 95%;
+    position:fixed;
+    z-index: 20;
+    opacity: 0.85;
+    background-color: #437592;
+    top: 0px;
+    left: 0px;
+    width: 100%;
     display: flex;
     justify-content: center;
-    font-family: 'Candal', sans-serif;
-    margin: auto 80%;
-    color: #502050;
-    text-shadow: 1px 4px 5px #FFFFFF;
+    font-family: 'Merienda', cursive;
+    font-weight: 700;
+    word-spacing: 18px;
+    color: #0E275C;
+    text-shadow: 1px 1px 1px white;
+    animation: slidedown 1.5s;
 }
+
+@keyframes slidedown {
+    from {
+        top: -200px;
+    }
+    to {
+        top: 0px;
+    }
+}
+
 
 footer {
     width: 95%;
@@ -24,18 +51,31 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Candal', sans-serif;
-    margin: auto 80%;
-    color: #502050;
-    text-shadow: 1px 4px 5px #FFFFFF;
-    font-size: 0.7em;
+    font-family: 'Merienda', cursive;
+    /*font-family: 'Candal', sans-serif;*/
+}
+
+#foottext {
+    color: black;
+    font-size: 0.75em;
+    animation: pulsing 2s infinite alternate;
+}
+
+@keyframes pulsing {
+    0% { text-shadow: 0; }
+    25% { text-shadow: 3px 10px 5px #111111; }
+    50% { text-shadow: 0; }
+    75% { text-shadow: -3px 10px 3px white; }
+    100% { text-shadow: 0; }
 }
 
 section:first-of-type {
+    color: #437592;
+    clear: both;
     width: 60%;
     margin: auto 75%;
-    font-family: 'Nunito', sans-serif;
-    text-shadow: 2px 2px 5px #FFFFFF;
+    font-family: 'Merienda', cursive;
+    text-shadow: 2px 2px 5px black;
 }
 
 #clicktrap {
@@ -52,7 +92,16 @@ section:first-of-type {
     display: inherit;
     margin: 10px;
     border-style:outset;
+    border : 5px solid #437592;
 }
+
+.imageholder:hover {
+    border : 5px solid #EAAB17;
+    transition: border 400ms ease-out;
+    -webkit-transition: border 400ms ease-out;
+}
+
+
 
 #buttonstorage, #restartstorage{
     display: inherit;

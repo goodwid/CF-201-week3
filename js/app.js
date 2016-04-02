@@ -99,7 +99,8 @@ function trapListener(e) { // Main routine for monitoring clicks on images.
 function showChart(results) {   // uses highcharts to display data, function taken from snippet on highcharts' website and modded.
     $('#results').highcharts({
         chart: {
-            zoomType: 'xy'
+            zoomType: 'xy',
+            backgroundColor: '#ffffff'
         },
         title: {
             text: 'Summary of clicks and clicks/views ratio'
@@ -128,13 +129,13 @@ function showChart(results) {   // uses highcharts to display data, function tak
             title: {
                 text: 'clicks',
                 style: {
-                    color: Highcharts.getOptions().colors[0]
+                    color: '#EAAB16'
                 }
             },
             labels: {
                 format: '{value}',
                 style: {
-                    color: Highcharts.getOptions().colors[0]
+                    color: '#EAAB16'
                 }
             },
             opposite: true
@@ -147,15 +148,16 @@ function showChart(results) {   // uses highcharts to display data, function tak
             align: 'left',
             x: 80,
             verticalAlign: 'top',
-            y: 40,
+            y: 45,
             floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FAFAFA'
         },
         series: [{
             name: 'clicks',
             type: 'column',
             yAxis: 1,
             data: results.clicks,
+            color: '#00041F',
             tooltip: {
                 valueSuffix: ''
             }
@@ -164,6 +166,7 @@ function showChart(results) {   // uses highcharts to display data, function tak
             name: 'Click/View ratio',
             type: 'spline',
             data: results.CVratio,
+            color: '#EAAB16',
             tooltip: {
                 valueSuffix: '%'
             }
