@@ -1,5 +1,7 @@
+@import url(https://fonts.googleapis.com/css?family=Merienda:400,700);
+
 body {
-    background-color:  #e0C0e0;
+    background-color:  #273E66;
     margin: 0;
     padding: 0;
 }
@@ -19,24 +21,26 @@ header {
     position:fixed;
     z-index: 20;
     opacity: 0.85;
-    background-color: #d0b0d0;
+    background-color: #437592;
     top: 0px;
     left: 0px;
     width: 100%;
     display: flex;
     justify-content: center;
-    font-family: 'Candal', sans-serif;
-    color: #502050;
-    text-shadow: 1px 4px 5px #FFFFFF;
-    animation: slidedown 1.5s;
+    font-family: 'Merienda', cursive;
+    font-weight: 700;
+    word-spacing: 18px;
+    color: #123378;
+    text-shadow: 1px 1px 1px white;
+    /*animation: slidedown 1.5s;*/
 }
 
 @keyframes slidedown {
     from {
-        left: -2000px;
+        top: -200px;
     }
     to {
-        left: 0px;
+        top: 0px;
     }
 }
 
@@ -47,12 +51,13 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Candal', sans-serif;
+    font-family: 'Merienda', cursive;
+    /*font-family: 'Candal', sans-serif;*/
 }
 
 #foottext {
-    color: #502050;
-    font-size: 0.7em;
+    color: black;
+    font-size: 0.75em;
     animation: pulsing 2s infinite alternate;
 }
 
@@ -65,11 +70,12 @@ footer {
 }
 
 section:first-of-type {
+    color: #437592;
     clear: both;
     width: 60%;
     margin: auto 75%;
-    font-family: 'Nunito', sans-serif;
-    text-shadow: 2px 2px 5px #FFFFFF;
+    font-family: 'Merienda', cursive;
+    text-shadow: 2px 2px 5px black;
 }
 
 #clicktrap {
@@ -86,11 +92,11 @@ section:first-of-type {
     display: inherit;
     margin: 10px;
     border-style:outset;
-    border : 5px solid black;
+    border : 5px solid #437592;
 }
 
 .imageholder:hover {
-    border : 5px solid red;
+    border : 5px solid #EAAB17;
     transition: border 400ms ease-out;
     -webkit-transition: border 400ms ease-out;
 }
