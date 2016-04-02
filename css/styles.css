@@ -30,9 +30,9 @@ header {
     font-family: 'Merienda', cursive;
     font-weight: 700;
     word-spacing: 18px;
-    color: #123378;
+    color: #0E275C;
     text-shadow: 1px 1px 1px white;
-    /*animation: slidedown 1.5s;*/
+    animation: slidedown 1.5s;
 }
 
 @keyframes slidedown {
