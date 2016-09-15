@@ -73,7 +73,7 @@ function trapListener(e) { // Main routine for monitoring clicks on images.
       clickTrap.removeEventListener ('click', trapListener);
       state.trapListener = false;
       unhideButtons();
-    } 
+    }
     updateState();
   }
 }
@@ -239,7 +239,7 @@ function singleRandom(high) {
 function threeUniqueRandoms(high) {
   var a,b,c;
   if (high < 2) {
-    console.error('Unable to generate three unique numbers from 0 to '+high+' as ',high, 'is too low');
+    console.error(`Unable to generate three unique numbers from 0 to ${high} as ${high} is too low`);
     return [0,0,0];
   }
   a = singleRandom(high);
@@ -252,15 +252,6 @@ function threeUniqueRandoms(high) {
     c = singleRandom(high);
   } while ((c === a) || (c === b));
   return [a,b,c];
-}
-
-
-function textHistogram(num) {
-  var out='';
-  for (var i=0;i<num;i++) {
-  out = out + '#####';
-  }
-  return out;
 }
 
 function unhideChart() {
