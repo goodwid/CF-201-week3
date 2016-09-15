@@ -101,8 +101,6 @@ section:first-of-type {
     -webkit-transition: border 400ms ease-out;
 }
 
-
-
 #buttonstorage, #restartstorage{
     display: inherit;
     justify-content:center;

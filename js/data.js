@@ -1,10 +1,34 @@
 var imageData = [
-    ["chair","images/chair.jpg"],
-    ["dog","images/dog.jpg"],
-    ["football","images/football.jpg"],
-    ["gears","images/gears.jpg"],
-    ["horse","images/horse.jpg"],
-    ["bird","images/bird.jpg"],
-    ["necklace","images/necklace.jpg"],
-    ["watch","images/watch.jpg"]
+  {
+    name: 'chair',
+    path: 'images/chair.jpg'
+  },
+  {
+    name: 'dog',
+    path: 'images/dog.jpg'
+  },
+  {
+    name: 'football',
+    path: 'images/football.jpg'
+  },
+  {
+    name: 'gears',
+    path: 'images/gears.jpg'
+  },
+  {
+    name: 'horse',
+    path: 'images/horse.jpg'
+  },
+  {
+    name: 'bird',
+    path: 'images/bird.jpg'
+  },
+  {
+    name: 'necklace',
+    path: 'images/necklace.jpg'
+  },
+  {
+    name: 'watch',
+    path: 'images/watch.jpg'
+  }
 ];
